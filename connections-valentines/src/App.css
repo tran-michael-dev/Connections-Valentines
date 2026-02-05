@@ -1,0 +1,14 @@
+html, body {
+  height: 100%;
+}
+
+body {
+  display: grid;
+  place-items: center;
+}
+
+.words {
+  display: grid;
+  grid-template-columns: repeat(4, 200px);
+  gap: 20px
+}

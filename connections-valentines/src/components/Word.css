@@ -1,0 +1,17 @@
+.word-btn {
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    background-color: aliceblue;
+    height: 100px;
+    width: 200px;
+    border-radius: 15px;
+    transition: background-color .15s ease-out;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 25px;
+    border: none;
+}
+
+.--active {
+    background-color:rgb(175, 175, 175);
+}
