@@ -16,6 +16,7 @@ function App() {
     submitting,
     submittedWords,
     shuffling,
+    lostLifeIndex,
 		selectWord,
     shuffleWords,
     deselectAll,
@@ -49,15 +50,18 @@ function App() {
         ))}
       </div>
       <div className="lives">
-        <p>Mistakes Remaining: </p>
-        {Array.from({ length: lives }).map((_, index) => (
-          <Life key={index} />
+        <p>Mistakes Remaining:</p>
+        {lives.map((life, index) => (
+          <Life
+            key={life}
+            animateLoss={index === lostLifeIndex}
+          />
         ))}
       </div>
       <div className="buttons">
         <Button name={"Shuffle"} func={() => shuffleWords()}/>
         <Button name={"Deselect All"} func={() => deselectAll()}/>
-        <Button name={"Submit"} func={() => submitWords()}/>
+        <Button name={"Submit"} func={() => submitWords()} canPress={selectedWords.length === 4}/>
       </div>
     </>
   )

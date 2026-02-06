@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 
 function Word({ word, selected, selectWord, canAnimate, submitting, isSubmitted, shuffling }) {
 	const wordVariants = {
-		idle: { y: 0 },
+		idle: { y: 0},
 		selected: { y: -2.5 },
 		submitting: {
 			y: [0, -20, 10, 0],

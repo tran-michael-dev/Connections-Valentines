@@ -1,4 +1,4 @@
-import { use, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import WORDS from "../data/words"
 import shuffle from "../functions/shuffle"
 import useBanners from "./useBanners";
@@ -9,12 +9,22 @@ function useWords() {
 		addBanner
 	] = useBanners();
 
-	const [ words, setWords ] = useState(WORDS);
+	const [ words, setWords ] = useState(shuffle([...WORDS]));
 	const [ selectedWords, setSelectedWords ] = useState([]);
-	const [ lives, setLives ] = useState(4);
 	const [submitting, setSubmitting] = useState(false);
 	const [submittedWords, setSubmittedWords] = useState([]);
-	const [ shuffling, setShuffling ] = useState(false)
+	const [ shuffling, setShuffling ] = useState(false);
+	const [lives, setLives] = useState([0, 1, 2, 3]);
+	const prevLivesRef = useRef(lives);
+	const [lostLifeIndex, setLostLifeIndex] = useState(null);
+
+	useEffect(() => {
+		if (lives < prevLivesRef.current) {
+			setLostLifeIndex(lives);
+		}
+
+		prevLivesRef.current = lives;
+	}, [lives]);
 
 	// Select a word, only up to four words can be selected
 	const selectWord = (word) => {
@@ -80,8 +90,13 @@ function useWords() {
 	};
 
 	const removeLife = () => {
-  setLives(prev => Math.max(prev - 1, 0));
-};
+		setLostLifeIndex(lives.length - 1);
+
+		setTimeout(() => {
+			setLives(prev => prev.slice(0, -1));
+			setLostLifeIndex(null);
+		}, 400); // matches animation duration
+	};
 
 	return {
 		activeBanners,
@@ -91,6 +106,7 @@ function useWords() {
 		submitting,
 		submittedWords,
 		shuffling,
+		lostLifeIndex,
 		selectWord,
 		shuffleWords,
 		deselectAll,

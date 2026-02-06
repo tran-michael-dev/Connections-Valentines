@@ -1,11 +1,11 @@
 import './Button.css'
 
-function Button({ name, func }) {
+function Button({ name, func, canPress = true }) {
 
   return (
     <button 
     onClick={func}
-    className='btn'
+    className={`btn ${!canPress ? '--unselectable' : ''}`}
     >
       <p 
       className='btn-name'

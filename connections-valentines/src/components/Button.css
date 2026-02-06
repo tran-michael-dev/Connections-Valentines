@@ -16,3 +16,8 @@
   position: relative;
   bottom: 5px;
 }
+
+.--unselectable {
+  opacity: 0.5;
+  pointer-events: none;
+}
