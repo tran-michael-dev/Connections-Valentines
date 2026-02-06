@@ -27,3 +27,13 @@ body {
   left: 240px;
   font-size: 20px;
 }
+
+.buttons {
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  grid-template-columns: repeat(3, 180px);
+  position: relative;
+  left: 18px;
+  padding-top: 20px;
+}
