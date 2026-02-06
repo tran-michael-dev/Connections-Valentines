@@ -2,38 +2,68 @@ html, body {
   height: 100%;
 }
 
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* center content inside header */
+  justify-content: center;
+  gap: 0px;
+  height: 100px;
+  position: relative;
+  top: 30px;
+}
+
+.title {
+  height: 20px;
+  font-size: 100px;
+  
+}
+
+.date {
+  font-size: 32px;
+}
+
 body {
-  display: grid;
-  place-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* center everything horizontally */
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  min-height: 100vh;
+  margin: 0;
 }
 
 .banners {
   display: grid;
   gap: 20px;
+  padding-top: 124px;
+  justify-content: center; /* <-- center banner items horizontally */
+  width: 100%;             /* optional, ensures full width container */
 }
 
 .words {
   display: grid;
+  width: 100%; /* container takes full width */
   grid-template-columns: repeat(4, 200px);
   gap: 20px;
+  justify-content: center; /* center grid items */
   padding-bottom: 20px;
 }
 
+.words.--win {
+  grid-template-columns: repeat(5, 200px);
+  justify-content: center; /* still center the 5 columns */
+}
+
 .lives {
-  display: grid;
-  grid-template-columns: 200px repeat(4, 40px);
-  position: relative;
-  left: 240px;
-  font-size: 20px;
+  display: flex;
+  gap: 10px;
+  justify-content: center; /* center lives */
+  margin-top: 20px;
 }
 
 .buttons {
-  display: grid;
-  align-items: center;
-  justify-content: center;
-  grid-template-columns: repeat(3, 180px);
-  position: relative;
-  left: 18px;
-  padding-top: 20px;
+  display: flex;
+  gap: 20px;
+  justify-content: center; /* center buttons */
+  margin-top: 20px;
 }

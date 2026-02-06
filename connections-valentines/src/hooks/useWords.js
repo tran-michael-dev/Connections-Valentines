@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react"
 import WORDS from "../data/words"
 import shuffle from "../functions/shuffle"
 import useBanners from "./useBanners";
+import VALENTINES from "../data/valentine-words";
 
 function useWords() {
 	const [
@@ -17,6 +18,7 @@ function useWords() {
 	const [lives, setLives] = useState([0, 1, 2, 3]);
 	const prevLivesRef = useRef(lives);
 	const [lostLifeIndex, setLostLifeIndex] = useState(null);
+	const [ win, setWin ] = useState(false);
 
 	useEffect(() => {
 		if (lives < prevLivesRef.current) {
@@ -28,11 +30,12 @@ function useWords() {
 
 	// Select a word, only up to four words can be selected
 	const selectWord = (word) => {
+		const MAX_SELECTION = win ? 5 : 4;
 		setSelectedWords(prev => {
 			if (prev.includes(word)) {
 				return prev.filter(w => w !== word)
 			}
-			if (prev.length >= 4) {
+			if (prev.length >= MAX_SELECTION) {
 				return prev;
 			}
 
@@ -59,7 +62,8 @@ function useWords() {
 	// If selected 4 words, submit and check if they belong in they same category. If so delete them
 	// If not, take off a life.
 	const submitWords = () => {
-		if (selectedWords.length < 4 || submitting) return;
+		const MAX_SELECTION = win ? 5 : 4;
+		if (selectedWords.length < MAX_SELECTION || submitting) return;
 
 		setSubmitting(true);
 
@@ -73,6 +77,16 @@ function useWords() {
 			if (correct) {
 				deleteWords(selectedWords);
 				addBanner(selectedWords[0].difficulty);
+
+				// Compute win based on what the new activeBanners length *will be*
+				const futureBannerCount = activeBanners.length + 1;
+				const newWin = futureBannerCount === 4;
+				setWin(newWin);
+
+				// Immediately set Valentine words if the player won
+				if (newWin) {
+					setWords([...VALENTINES]);
+				}
 			} else {
 				removeLife();
 			}
@@ -99,6 +113,7 @@ function useWords() {
 	};
 
 	return {
+		win,
 		activeBanners,
 		words,
 		selectedWords,

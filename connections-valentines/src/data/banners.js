@@ -1,7 +1,8 @@
 import WORDS from "./words"
+import VALENTINES from "./valentine-words";
 
-const makeBanner = (id, difficulty, color) => {
-  const wordList = WORDS.filter(w => w.difficulty === difficulty);
+const makeBanner = (id, difficulty, color, array) => {
+  const wordList = array.filter(w => w.difficulty === difficulty);
 
   return {
     id,
@@ -13,10 +14,11 @@ const makeBanner = (id, difficulty, color) => {
 };
 
 const BANNERS = [
-  makeBanner(1, "trivial", "#fadf6d"),
-  makeBanner(2, "easy", "#a0c35a"),
-  makeBanner(3, "medium", "#b2c4f0"),
-  makeBanner(4, "hard", "#ba81c6"),
+  makeBanner(1, "trivial", "#fadf6d", WORDS),
+  makeBanner(2, "easy", "#a0c35a", WORDS),
+  makeBanner(3, "medium", "#b2c4f0", WORDS),
+  makeBanner(4, "hard", "#ba81c6", WORDS),
+  makeBanner(5, "valentines", '#e5a4c6', VALENTINES)
 ];
 
 export default BANNERS;

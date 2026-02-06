@@ -6,7 +6,7 @@ function Banner({ color, category, wordList }) {
   return (
     <motion.div 
     className='banner'
-    style={{ backgroundColor: color }}
+    style={{ backgroundColor: color}}
     initial= {{ scale: 0 }}
     animate= {{ scale: 1 , transition: { duration: 0.5, ease: "easeInOut" }}}
     >
@@ -15,7 +15,7 @@ function Banner({ color, category, wordList }) {
           {category}
         </p>
         <p className='elements'>
-          {wordList.map(word => word.name).join(', ')}
+          {wordList.map(word => word.name).join(`${category === "VALENTINES" ? " " : ", "}`)}
          </p>
       </div>
     </motion.div>
