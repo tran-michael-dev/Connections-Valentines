@@ -7,7 +7,11 @@ function Button({ name, func }) {
     onClick={func}
     className='btn'
     >
-      <p className='btn-name'>{name}</p>
+      <p 
+      className='btn-name'
+      >
+        {name}
+      </p>
     </button>
   )
 }

@@ -13,6 +13,9 @@ function App() {
     words,
     selectedWords,
     lives,
+    submitting,
+    submittedWords,
+    shuffling,
 		selectWord,
     shuffleWords,
     deselectAll,
@@ -27,17 +30,22 @@ function App() {
           key={banner.id}
           color={banner.color}
           category={banner.category}
+          wordList={banner.wordList}
           />
         ))}
       </div>
       <div className="words">
         {words.map(word => (
-          <Word 
-          key={word.id} 
-          word={word}
-          selected={selectedWords.includes(word)}
-          selectWord={() => selectWord(word)}
-          />
+            <Word 
+            key={word.id} 
+            word={word}
+            selected={selectedWords.includes(word)}
+            selectWord={() => selectWord(word)}
+            canAnimate={selectedWords.length < 4}
+            submitting={submitting}
+            isSubmitted={submittedWords.includes(word)}
+            shuffling={shuffling}
+            />
         ))}
       </div>
       <div className="lives">

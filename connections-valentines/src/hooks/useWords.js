@@ -12,6 +12,9 @@ function useWords() {
 	const [ words, setWords ] = useState(WORDS);
 	const [ selectedWords, setSelectedWords ] = useState([]);
 	const [ lives, setLives ] = useState(4);
+	const [submitting, setSubmitting] = useState(false);
+	const [submittedWords, setSubmittedWords] = useState([]);
+	const [ shuffling, setShuffling ] = useState(false)
 
 	// Select a word, only up to four words can be selected
 	const selectWord = (word) => {
@@ -29,7 +32,13 @@ function useWords() {
 
 	// Shuffle the array of words. Must copy array for shuffle or it won't reload state
 	const shuffleWords = () => {
+		if (shuffling || submitting) return;
+		setShuffling(true);
 		setWords(prev => shuffle([...prev]));
+
+		setTimeout(() => {
+			setShuffling(false);
+		}, 600);
 	}
 
 	// Deselect all selected words
@@ -40,18 +49,28 @@ function useWords() {
 	// If selected 4 words, submit and check if they belong in they same category. If so delete them
 	// If not, take off a life.
 	const submitWords = () => {
-		if (selectedWords.length < 4) return;
+		if (selectedWords.length < 4 || submitting) return;
+
+		setSubmitting(true);
 
 		const correct =
 			selectedWords.every(w => w.difficulty === selectedWords[0].difficulty);
-			
-		if (correct) {
-			deleteWords(selectedWords);
-			addBanner(selectedWords[0].difficulty)
-		} else {
-			removeLife();
-		}
-		setSelectedWords([]);
+
+		// Freeze the 4 words that should animate
+		setSubmittedWords(selectedWords);
+
+		setTimeout(() => {
+			if (correct) {
+				deleteWords(selectedWords);
+				addBanner(selectedWords[0].difficulty);
+			} else {
+				removeLife();
+			}
+
+			setSelectedWords([]);
+			setSubmittedWords([]);
+			setSubmitting(false);
+		}, 600);
 	};
 
 	// Deletes all words selected from words array
@@ -69,6 +88,9 @@ function useWords() {
 		words,
 		selectedWords,
 		lives,
+		submitting,
+		submittedWords,
+		shuffling,
 		selectWord,
 		shuffleWords,
 		deselectAll,

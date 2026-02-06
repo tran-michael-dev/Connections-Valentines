@@ -8,7 +8,7 @@ const makeBanner = (id, difficulty, color) => {
     difficulty,
     color,
     wordList,
-    category: wordList[0]?.difficulty
+    category: wordList[0]?.category
   };
 };
 
