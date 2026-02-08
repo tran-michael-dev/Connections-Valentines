@@ -5,10 +5,11 @@ html, body {
 }
 
 .connections {
-  background-color: antiquewhite;
-  transition: background-color 1s ease-in-out;
+  display: flex;
+  flex-direction: column;
   min-height: 100vh;
   width: 100vw;
+  background-color: antiquewhite;
 }
 
 .header {
@@ -42,8 +43,8 @@ body {
 }
 
 .body {
-  position: relative;
-  top: 124px;
+  flex-grow: 1;
+  margin-top: 124px; /* optional */
 }
 
 .banners {
